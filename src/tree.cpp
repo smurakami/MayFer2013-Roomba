@@ -21,6 +21,10 @@ int Tree::setRandomTerm(){
   return root->setRandomTerm();
 }
 
+Node * Tree::getRoot(){
+  return root;
+}
+
 void Tree::printTree(){
   using namespace std;
   cout << "---------PRINT TREE---------";

@@ -19,6 +19,7 @@ public:
   Tree();
   void setRoot();
   int setRandomTerm();
+  Node * getRoot();
   void printTree();
 };
 

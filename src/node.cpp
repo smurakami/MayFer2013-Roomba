@@ -10,10 +10,10 @@
 
 Node::Node(){
   if(rand() % 2){
-    nodeType = randnum;
+    nodeType = RANDNUM;
     val = rand() % 100;
   }else{
-    nodeType = sensor;
+    nodeType = SENSOR;
     val = rand() % SENSOR_NUM;
   }
   sizeOfSubTree = 1;
@@ -27,21 +27,21 @@ int Node::setRandomTerm(){
   int nextChild;
   int addedSize;
   switch (nodeType) {
-    case randnum:
-    case sensor:
+    case RANDNUM:
+    case SENSOR:
       switch (rand() % 3) {
         case 0:
-          nodeType = move;
+          nodeType = MOVE;
           val = 0;
           addedSize = 3;
           break;
         case 1:
-          nodeType = iflte;
+          nodeType = IFLTE;
           val = 0;
           addedSize = 4;
           break;
         case 2:
-          nodeType = prog2;
+          nodeType = PROG2;
           val = 0;
           addedSize = 2;
           break;
@@ -56,13 +56,13 @@ int Node::setRandomTerm(){
 
       return addedSize;
       
-    case move:
+    case MOVE:
       nextChild = rand() % 3;
       break;
-    case iflte:
+    case IFLTE:
       nextChild = rand() % 4;
       break;
-    case prog2:
+    case PROG2:
       nextChild = rand() % 2;
       break;
     default:
@@ -77,13 +77,33 @@ void Node::setParent(Node * n){
   parent = n;
 }
 
+NodeType Node::getNodeType(){
+  return nodeType;
+}
+
+int Node::getVal(){
+  return val;
+}
+
+int Node::getSizeOfSubTree(){
+  return sizeOfSubTree;
+}
+
+Node * Node::getChild(int i){
+  return childs[i];
+}
+
+Node * Node::getParent(){
+  return parent;
+}
+
 void Node::printNode(int depth){
   using namespace std;
   switch (nodeType) {
-    case sensor:
+    case SENSOR:
       cout << "S" << val;
       return;
-    case randnum:
+    case RANDNUM:
       cout << "R" << val;
       return;
     default:
@@ -95,22 +115,22 @@ void Node::printNode(int depth){
   }
   cout << "(";
   switch (nodeType) {
-    case move:
-      cout << "move";
+    case MOVE:
+      cout << "MOVE";
       for(int i = 0; i < 3; i++){
         cout << " ";
         childs[i]->printNode(depth + 1);
       }
       break;
-    case iflte:
-      cout << "iflte";
+    case IFLTE:
+      cout << "IFLTE";
       for(int i = 0; i < 4; i++){
         cout << " ";
         childs[i]->printNode(depth + 1);
       }
       break;
-    case prog2:
-      cout << "prog2";
+    case PROG2:
+      cout << "PROG2";
       for(int i = 0; i < 2; i++){
         cout << " ";
         childs[i]->printNode(depth + 1);

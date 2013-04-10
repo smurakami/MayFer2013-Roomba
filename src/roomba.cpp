@@ -8,13 +8,24 @@
 
 #include "roomba.h"
 #include "field.h"
+#include <list>
 
 Roomba::Roomba(){
   body.x = BLOCK_SIZE * FIELD_WIDTH  / 2;
   body.y = BLOCK_SIZE * FIELD_HEIGHT / 2;
-  body.theta = M_PI / 3;
   setRandomDNABySize(16);
   DNA.printTree();
+  
+//  for(int i = 0; i < 10; i++){
+//    path.push(0.1 * i, 10*i);
+//  }
+//  
+//  std::list<Position>::iterator itr;
+//  
+//  for(itr = path.p.begin(); itr != path.p.end(); itr++){
+//    cout << "x = " << itr->x << ", y = " << itr->y << endl;
+//  }
+  
 }
 
 void Roomba::setField(Field * p){
@@ -37,4 +48,36 @@ void Roomba::setRandomDNABySize(int size){
     addedSize += DNA.setRandomTerm();
   }
 }
+
+void Roomba::run(){
+  Node * root = DNA.getRoot();
+  runNode(root);
+}
+
+int Roomba::runNode(Node * node){
+  int val0, val1;
+  switch(node->getNodeType()){
+    case RANDNUM:
+      return node->getVal();
+    case SENSOR :
+      return sensor.val[node->getVal()];
+    case MOVE   :
+//---------------------------------------
+//      ここを書いたらルンバ本体は完成
+//---------------------------------------
+      break;
+    case IFLTE  :
+      val0 = runNode(node->getChild(0));
+      val1 = runNode(node->getChild(1));
+      if(val0 < val1) return runNode(node->getChild(2));
+      else return runNode(node->getChild(3));
+    case PROG2  :
+      runNode(node->getChild(0));
+      return runNode(node->getChild(1));
+    default:
+      break;
+  }
+  return 0;
+}
+
 

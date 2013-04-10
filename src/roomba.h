@@ -14,6 +14,7 @@
 #include "tree.h"
 #include "field.h"
 #include "sensor.h"
+#include "path.h"
 
 #define FIELD_HEIGHT 12
 #define FIELD_WIDTH 12
@@ -25,12 +26,15 @@ private:
   Field * field;
   Sensor sensor;
 public:
+  Path path;
   Ball body;
   Roomba();
   void setField(Field * p);
   void setSensorVal();
   void draw();
   void setRandomDNABySize(int size);
+  void run();
+  int runNode(Node * node);
 };
 
 #endif /* defined(__Roomba__roomba__) */

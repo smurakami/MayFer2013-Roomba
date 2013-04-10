@@ -24,7 +24,7 @@ float cot(float x){
 }
 
 void Sensor::setVal(float roombaX, float roombaY, float roombaTheta){
-  std::cout << "roomba: " << roombaX << ", " << roombaY << std::endl;
+//  std::cout << "roomba: " << roombaX << ", " << roombaY << std::endl;
   float theta;
   float x;
   float y;
@@ -247,8 +247,8 @@ void Sensor::setVal(float roombaX, float roombaY, float roombaTheta){
 //  std::cout << "left  wall: " << wallX[3] << ", " << wallY[3] << std::endl;
 //  std::cout << "wall theta: " << wallTheta * 180 / M_PI << std::endl;
   
-  for(int i = 0; i < 5; i++){
-    std::cout << "sensor.val[" << i << "] = " << val[i] << endl;
-  }
+//  for(int i = 0; i < 5; i++){
+//    std::cout << "sensor.val[" << i << "] = " << val[i] << endl;
+//  }
 
 }

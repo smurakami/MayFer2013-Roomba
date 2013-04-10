@@ -30,11 +30,11 @@
 #define MAX_CHILD 4
 
 typedef enum{
-  randnum = 0,
-  sensor  = 1,
-  move    = 2,
-  iflte   = 3,
-  prog2   = 4
+  RANDNUM = 0,
+  SENSOR  = 1,
+  MOVE    = 2,
+  IFLTE   = 3,
+  PROG2   = 4
 } NodeType;
 
 class Node {
@@ -46,9 +46,18 @@ private:
   Node * parent;
 public:
   Node();
+//-----------------------------
   int setRandomTerm();
   void setParent(Node * n);
+//-----------------------------
+  NodeType getNodeType();
+  int getVal();
+  int getSizeOfSubTree();
+  Node * getChild(int i);
+  Node * getParent();
+//-----------------------------
   void printNode(int depth);
+//-----------------------------
 };
 
 
