@@ -14,6 +14,8 @@ Tree::Tree(){
 
 void Tree::setRoot(){
   root = new Node();
+  //rootが確実にMOVEになるようにする
+  root->setMoveNode(root);
 }
 
 int Tree::setRandomTerm(){
@@ -33,4 +35,10 @@ void Tree::printTree(){
   cout << "----------END TREE----------" << endl;
 }
 
+void Tree::copy(Tree * t){
+  t->root = root->copy();
+}
 
+Node ** Tree::selectRandomNodeByDepth(){
+  return root->selectRandomNodeByDepth(1, root);
+}

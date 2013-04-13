@@ -23,6 +23,28 @@ Node::Node(){
   }
 }
 
+//rootが確実にMOVEになるようにする
+void Node::setMoveNode(Node * termNode){
+  if((termNode->nodeType == MOVE) ||
+     (termNode->nodeType == IFLTE) ||
+     (termNode->nodeType == PROG2)){
+    perror("Node::setMoveNode: not term Node\n");
+    exit(1);
+  }
+
+  int nextChild;
+  int addedSize;
+  
+  nodeType = MOVE;
+  val = 0;
+  addedSize = 3;
+  sizeOfSubTree += addedSize;
+  for(int i = 0; i < addedSize; i++){
+    childs[i] = new Node();
+    childs[i]->setParent(this);
+  }
+}
+
 int Node::setRandomTerm(){
   int nextChild;
   int addedSize;
@@ -141,4 +163,71 @@ void Node::printNode(int depth){
   }
   cout << ")";
   
+}
+
+Node * Node::copy(){
+  Node * n = new Node();
+  n->nodeType = nodeType;
+  n->val = val;
+  n->sizeOfSubTree = sizeOfSubTree;
+  int childNum;
+  switch (nodeType) {
+    case RANDNUM:
+    case SENSOR:
+      return n;
+    case MOVE:
+      childNum = 3;
+      break;
+    case IFLTE:
+      childNum = 4;
+      break;
+    case PROG2:
+      childNum = 2;
+      break;
+    default:
+      break;
+  }
+  
+  for(int i = 0; i < childNum; i++){
+    n->childs[i] = childs[i]->copy();
+  }
+  
+  return n;
+}
+
+int getProbabilityByDepth(int depth){
+  int num = DENOMINATOR;
+  //最低でも1
+  for(int i = 1; i < 14; i++){
+    num /= 2;
+  }
+  return num;
+}
+
+Node ** Node::selectRandomNodeByDepth(int depth, Node *root){
+  int childNum;
+  switch (nodeType) {
+    case RANDNUM:
+    case SENSOR:
+      return root->selectRandomNodeByDepth(1, root);
+    case MOVE:
+      childNum = 3;
+      break;
+    case IFLTE:
+      childNum = 4;
+      break;
+    case PROG2:
+      childNum = 2;
+      break;
+    default:
+      break;
+  }
+  
+  int child = rand() % childNum;
+  int dice = rand() % DENOMINATOR;
+  if(dice < getProbabilityByDepth(depth)){
+    return &childs[child];
+  }
+  
+  return childs[child]->selectRandomNodeByDepth(depth + 1, root);
 }

@@ -237,9 +237,12 @@ void Sensor::setVal(float roombaX, float roombaY, float roombaTheta){
   }
   
   for(int i = 0; i < 4; i++){
-    val[i] = ofDist(roombaX, roombaY, wallX[i], wallY[i]);
+//    val[i] = ofDist(roombaX, roombaY, wallX[i], wallY[i]) * (100 / 720);
+    val[i] = 10000.0 / (ofDist(roombaX, roombaY, wallX[i], wallY[i]) + 100);
+    if(val[i] > 100) val[i] = 100;
   }
-  val[4] = wallTheta * 180 / M_PI;
+  val[4] = wallTheta * 180 / M_PI * (100 / 180);
+  if(val[4] > 100) val[4] = 100;
   
 //  std::cout << "front wall: " << wallX[0] << ", " << wallY[0] << std::endl;
 //  std::cout << "back  wall: " << wallX[2] << ", " << wallY[2] << std::endl;

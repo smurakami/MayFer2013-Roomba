@@ -25,6 +25,7 @@ typedef struct _Block{
 class Field {
 public:
   char map[FIELD_HEIGHT][FIELD_WIDTH];
+  char dustMap[FIELD_HEIGHT][FIELD_WIDTH];
   Field();
   void draw();
   Block pointToBlock(float x, float y);

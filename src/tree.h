@@ -21,6 +21,10 @@ public:
   int setRandomTerm();
   Node * getRoot();
   void printTree();
+  void copy(Tree * t);
+  
+  Node ** selectRandomNodeByDepth();
+  
 };
 
 #endif /* defined(__Roomba__tree__) */

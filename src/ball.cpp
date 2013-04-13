@@ -10,7 +10,7 @@
 #include "field.h"
 
 Ball::Ball(){
-  color.set(ofColor::blue);
+  color.set(rand() % 256, rand() % 256, rand() % 256);
   theta = M_PI_2 * 3;
 }
 

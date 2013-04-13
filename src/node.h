@@ -28,6 +28,7 @@
 //
 
 #define MAX_CHILD 4
+#define DENOMINATOR 16384
 
 typedef enum{
   RANDNUM = 0,
@@ -48,6 +49,7 @@ public:
   Node();
 //-----------------------------
   int setRandomTerm();
+  void setMoveNode(Node * termNode);
   void setParent(Node * n);
 //-----------------------------
   NodeType getNodeType();
@@ -58,6 +60,8 @@ public:
 //-----------------------------
   void printNode(int depth);
 //-----------------------------
+  Node * copy();
+  Node ** selectRandomNodeByDepth(int depth, Node * root);
 };
 
 

@@ -11,6 +11,8 @@
 
 #include <iostream>
 #include <list>
+#include "ofMain.h"
+#include "field.h"
 
 typedef struct _Position{
   float x;
@@ -19,9 +21,14 @@ typedef struct _Position{
 
 class Path {
 public:
+  ofColor color;
   std::list<Position> p;  
   Path();
   void push(float x, float y);
+  void clear();
+  void draw();
+  float xForDraw(float x);
+  float yForDraw(float y);
 };
 
 
